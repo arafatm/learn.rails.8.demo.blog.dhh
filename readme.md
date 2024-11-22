@@ -8,4 +8,14 @@ title: Rails 8 The Demo
 rails new blog
 ```
 
+🚢 [2c638f7](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/2c638f7)
+```bash
+bundle exec rails generate scaffold post title:string body:text
+```
+
+🚢 [adb017b](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/adb017b)
+```bash
+bundle exec rails db:migrate 
+```
+
 xxx
