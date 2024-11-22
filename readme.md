@@ -18,4 +18,65 @@ bundle exec rails generate scaffold post title:string body:text
 bundle exec rails db:migrate 
 ```
 
+`app/controllers/posts_controller.rb`
+- 7 actions: index, show, new, edit, create, index, destroy
+- 2 flavors: html, json
+
+`app/models/post.rb`
+- Uses _intrespection_ of `schema.rb`
+
+`app/views/posts/` 
+- has erb files for all rest actions
+
+🚢 [909c482](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/909c482)
+Start puma web server
+```bash
+bundle exec rails s -b 0.0.0.0 
+```
+
+- [posts](localhost:3000/posts) returns html
+- [posts.json](localhost:3000/posts.json) returns json 
+
+🚢 [67a4a63](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/67a4a63)
+Add simple.css
+```diff
+diff --git a/blog/app/views/layouts/application.html.erb
++    <%= stylesheet_link_tag "https://cdn.simplecss.org/simple.css" %>
+```
+
+🚢 [387ee99](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/387ee99)
+Raising an exception provides the stacktrace and a _builtin console_
+```diff
+diff --git a/blog/app/controllers/posts_controller.rb
+   def index
+     @posts = Post.all
++    raise "some exception"
+```
+Can interact with the console e.g. `@posts`
+- can also in the cli `rails console`
+
+🚢 [1efd5c1](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/1efd5c1)
+Provides a _wysiwyg_ and `action_storage` to support attachments and files
+```bash
+bundle exec rails action_text:install
+```
+
+🚢 [cf33fc3](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/cf33fc3)
+Install required gems
+```bash
+,buinstall
+```
+
+🚢 [dd7eae8](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/dd7eae8)
+Don't forget to db:migrate
+```bash
+bundle exec rails db:migrate 
+```
+
+🚢 [fb99a7e](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/fb99a7e)
+Restart server
+```bash
+* bundle exec rails s -b 0.0.0.0 
+```
+
 xxx
