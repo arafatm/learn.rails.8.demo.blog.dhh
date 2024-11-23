@@ -58,6 +58,7 @@ Can interact with the console e.g. `@posts`
 🚢 [1efd5c1](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/1efd5c1)
 Provides a _wysiwyg_ and `action_storage` to support attachments and files
 ```bash
+# Ubuntu: apt install libvips-dev
 bundle exec rails action_text:install
 ```
 
@@ -77,6 +78,27 @@ bundle exec rails db:migrate
 Restart server
 ```bash
 * bundle exec rails s -b 0.0.0.0 
+```
+
+🚢 [bd6a509](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/bd6a509)
+Remove raised exception from earlier
+
+🚢 [835f08b](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/835f08b)
+Enable rich text for post.body
+```diff
+diff --git a/blog/app/models/post.rb
+@@ -1,2 +1,3 @@
+ class Post < ApplicationRecord
++  has_rich_text :body
+ end
+
+diff --git a/blog/app/views/posts/_form.html.erb
+@@ -2,7 +2,6 @@
+   <div>
+     <%= form.label :body, style: "display: block" %>
+-    <%= form.textarea :body %>
++    <%= form.rich_textarea :body %>
+   </div>
 ```
 
 xxx
