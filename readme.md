@@ -101,4 +101,49 @@ diff --git a/blog/app/views/posts/_form.html.erb
    </div>
 ```
 
+###### importmap
+
+- `config/importmap.rb` includes npm dependencies 
+- By default includes
+  - [hotwired/turbo-rails](https://github.com/hotwired/turbo-rails) to write SPA-ish without JS
+  - [Stimulus JS](https://stimulus.hotwired.dev/) 
+
+🚢 [5a8bf51](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/5a8bf51)
+Example to include an npm package
+```bash
+`bin/importmap pin local-time` 
+```
+```diff
+diff --git a/blog/config/importmap.rb
++pin "local-time" # @3.0.2
+
+diff --git a/blog/vendor/javascript/local-time.js
+new file mode 100644
+@@ -0,0 +1,4 @@
++// local-time@3.0.2 downloaded from https://ga.jspm.io/npm:local-time@3.0.2/app/assets/javascripts/local-time.es2017-esm.js
+```
+
+🚢 [350a719](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/350a719)
+Example of using npm package. Even though time is stored UTC, we're using local-time package to display local time
+```diff
+diff --git a/blog/app/javascript/application.js
++import LocalTime from "local-time"
++LocalTime.start()
+
+diff --git a/blog/app/views/posts/_post.html.erb
++  <p>
++    <strong>Updated at:</strong>
++    <%= time_tag post.updated_at, "data-local": "time", "data-format": "%B %e, %Y %l:%M%P" %>
++  </div>
+```
+
+In browser dev-tools, go to `network->js` to view the js files being pulled from npm
+
+###### Add comments
+
+🚢 [5e06c5f](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/5e06c5f)
+```bash
+bundle exec rails generate resource comment post:references content:text
+```
+
 xxx
