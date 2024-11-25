@@ -149,4 +149,12 @@ bundle exec rails generate resource comment post:references content:text
 - `resource` generator is more lightweight than `scaffold`
 - generates model, migration, empty controller actions
 
+🚢 [90ded35](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/90ded35)
+
+```bash,brldbmigrate
+```
+```
+  bash: line 1: ,brldbmigrate: command not found
+```
+
 xxx
