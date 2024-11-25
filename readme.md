@@ -113,6 +113,7 @@ Example to include an npm package
 ```bash
 `bin/importmap pin local-time` 
 ```
+
 ```diff
 diff --git a/blog/config/importmap.rb
 +pin "local-time" # @3.0.2
@@ -145,5 +146,7 @@ In browser dev-tools, go to `network->js` to view the js files being pulled from
 ```bash
 bundle exec rails generate resource comment post:references content:text
 ```
+- `resource` generator is more lightweight than `scaffold`
+- generates model, migration, empty controller actions
 
 xxx
