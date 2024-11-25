@@ -3,6 +3,8 @@ source: https://www.youtube.com/watch?v=X_Hw9P1iZfQ
 title: Rails 8 The Demo 
 ---
 
+## rails new
+
 🚢 [8dfb67b](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/8dfb67b)
 ```bash
 rails new blog
@@ -37,12 +39,16 @@ bundle exec rails s -b 0.0.0.0
 - [posts](localhost:3000/posts) returns html
 - [posts.json](localhost:3000/posts.json) returns json 
 
+## simple.css
+
 🚢 [67a4a63](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/67a4a63)
 Add simple.css
 ```diff
 diff --git a/blog/app/views/layouts/application.html.erb
 +    <%= stylesheet_link_tag "https://cdn.simplecss.org/simple.css" %>
 ```
+
+## debugging
 
 🚢 [387ee99](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/387ee99)
 Raising an exception provides the stacktrace and a _builtin console_
@@ -54,6 +60,8 @@ diff --git a/blog/app/controllers/posts_controller.rb
 ```
 Can interact with the console e.g. `@posts`
 - can also in the cli `rails console`
+
+## action_storage
 
 🚢 [1efd5c1](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/1efd5c1)
 Provides a _wysiwyg_ and `action_storage` to support attachments and files
@@ -101,7 +109,7 @@ diff --git a/blog/app/views/posts/_form.html.erb
    </div>
 ```
 
-###### importmap
+## importmap
 
 - `config/importmap.rb` includes npm dependencies 
 - By default includes
@@ -140,7 +148,7 @@ diff --git a/blog/app/views/posts/_post.html.erb
 
 In browser dev-tools, go to `network->js` to view the js files being pulled from npm
 
-###### Add comments
+## Add comments
 
 🚢 [5e06c5f](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/5e06c5f)
 ```bash
@@ -149,12 +157,15 @@ bundle exec rails generate resource comment post:references content:text
 - `resource` generator is more lightweight than `scaffold`
 - generates model, migration, empty controller actions
 
-🚢 [90ded35](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/90ded35)
-
-```bash,brldbmigrate
+🚢 [3ddffc3](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/3ddffc3)
+```bash
+bundle exec rails db:migrate
 ```
 ```
-  bash: line 1: ,brldbmigrate: command not found
+  == 20241123224036 CreateComments: migrating ===================================
+  -- create_table(:comments)
+     -> 0.0021s
+  == 20241123224036 CreateComments: migrated (0.0022s) ==========================
 ```
 
 xxx
