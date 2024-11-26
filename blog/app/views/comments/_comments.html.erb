@@ -1,0 +1,7 @@
+<%# referenced in posts.show to show all comments to a post %>
+<h2>Comments</h2>
+<div id="comments">
+  <%= render post.comments %>
+</div>
+<%# form to add a new comment %>
+<%= render "comments/new", post: post %>

@@ -1,0 +1,5 @@
+<%# %>
+<div id="<%= dom_id(comment)%>" > <%# provide id so it can be referenced in dom %>
+  <%= comment.content %> -
+  <%= time_tag comment.updated_at, "data-local": "time-ago" %><%# using local-time we importmap'd earlier %>
+</div>
