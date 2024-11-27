@@ -366,4 +366,42 @@ bundle exec rails db:migrate
   == 20241126170315 CreateSessions: migrated (0.0029s) ==========================
 ```
 
+`sessions_controller.rb` 
+```ruby
+  allow_unauthenticated_access only: %i[ new create ]
+  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_session_url, alert: "Try again later." }
+```
+- Everything is access behind auth except new and create
+- added rate limiting
+
+🚢 [733abc3](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/733abc3)
+Since we dont have signup flow create an initial user
+```diff
+diff --git a/blog/db/seeds.rb
+@@ -7,3 +7,4 @@
+ #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
+ #     MovieGenre.find_or_create_by!(name: genre_name)
+ #   end
++User.create!(email_address: "test@test.com", password: "pwd123")
+```
+
+🚢 [7496d78](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/7496d78)
+```bash
+bundle exec rails db:seed
+```
+
+🚢 [bcf1309](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/bcf1309)
+Sign out button but only show if signed in
+```diff
+diff --git a/blog/app/views/layouts/application.html.erb
+@@ -19,6 +19,7 @@
+     <%= javascript_importmap_tags %>
+   </head>
+   <body>
++    <%= button_to "Sign out", session_path, method: :delete if authenticated? %>
+     <%= yield %>
+   </body>
+ </html>
+```
+
 xxx
