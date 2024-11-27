@@ -256,4 +256,114 @@ diff --git a/blog/config/routes.rb
 
 ## Websockets w/ action_cable
 
+🚢 [7083e67](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/7083e67)
+`turbo_stream_from @post` to live update comments
+```diff
+diff --git a/blog/app/models/comment.rb
+@@ -1,3 +1,4 @@
+ class Comment < ApplicationRecord
+   belongs_to :post
++  broadcasts_to :post
+ end
+
+diff --git a/blog/app/views/posts/show.html.erb
+@@ -1,3 +1,4 @@
++<%= turbo_stream_from @post %>
+ <p style="color: green"><%= notice %></p>
+ <%= render @post %>
+ <div>
+```
+
+## Production
+
+Rails uses `kamal` 
+- see `deploy.yml` for configuration
+- secrets can be pulled from 1password, GITHUB_TOKEN or env in `kamal.secrets`
+- kamal uses docker volume for active_storage, but we can use others e.g. s3
+
+Basic flow is...
+- `git commit`
+- `kamal deploy`
+
+🚢 [cb4b4d4](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/cb4b4d4)
+set root route
+```diff
+diff --git a/blog/config/routes.rb
+@@ -13,5 +13,5 @@ Rails.application.routes.draw do
+   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+ 
+   # Defines the root path route ("/")
+-  # root "posts#index"
++  root "posts#index"
+ end
+```
+
+## Authentication
+
+rails auth gives you tracking sessions, pwd resets, but _not signup flow_
+
+🚢 [c3e23fd](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/c3e23fd)
+
+```bash
+bundle exec rails generate authentication
+```
+```
+        invoke  erb
+        create    app/views/passwords/new.html.erb
+        create    app/views/passwords/edit.html.erb
+        create    app/views/sessions/new.html.erb
+        create  app/models/session.rb
+        create  app/models/user.rb
+        create  app/models/current.rb
+        create  app/controllers/sessions_controller.rb
+        create  app/controllers/concerns/authentication.rb
+        create  app/controllers/passwords_controller.rb
+        create  app/channels/application_cable/connection.rb
+        create  app/mailers/passwords_mailer.rb
+        create  app/views/passwords_mailer/reset.html.erb
+        create  app/views/passwords_mailer/reset.text.erb
+        create  test/mailers/previews/passwords_mailer_preview.rb
+        insert  app/controllers/application_controller.rb
+         route  resources :passwords, param: :token
+         route  resource :session
+          gsub  Gemfile
+        bundle  install --quiet
+  WARN: Unresolved or ambiguous specs during Gem::Specification.reset:
+        stringio (>= 0)
+        Available/installed versions of this gem:
+        - 3.1.2
+        - 3.1.1
+  WARN: Clearing out unresolved specs. Try 'gem cleanup <gem>'
+  Please report a bug if this causes problems.
+      generate  migration CreateUsers email_address:string!:uniq password_digest:string! --force
+         rails  generate migration CreateUsers email_address:string!:uniq password_digest:string! --force 
+        invoke  active_record
+        create    db/migrate/20241126170314_create_users.rb
+      generate  migration CreateSessions user:references ip_address:string user_agent:string --force
+         rails  generate migration CreateSessions user:references ip_address:string user_agent:string --force 
+        invoke  active_record
+        create    db/migrate/20241126170315_create_sessions.rb
+        invoke  test_unit
+        create    test/fixtures/users.yml
+        create    test/models/user_test.rb
+```
+
+🚢 [14c7204](https://github.com/arafatm/learn.rails.8.demo.blog.dhh/commit/14c7204)
+```bash
+bundle exec rails db:migrate
+```
+```
+  == 20241126170314 CreateUsers: migrating ======================================
+  -- create_table(:users)
+     -> 0.0028s
+  -- add_index(:users, :email_address, {:unique=>true})
+     -> 0.0009s
+  == 20241126170314 CreateUsers: migrated (0.0037s) =============================
+  
+  == 20241126170315 CreateSessions: migrating ===================================
+  -- create_table(:sessions)
+     -> 0.0028s
+  == 20241126170315 CreateSessions: migrated (0.0029s) ==========================
+```
+
 xxx
