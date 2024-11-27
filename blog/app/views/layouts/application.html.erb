@@ -19,6 +19,7 @@
     <%= javascript_importmap_tags %>
   </head>
   <body>
+    <%= button_to "Sign out", session_path, method: :delete if authenticated? %>
     <%= yield %>
   </body>
 </html>
